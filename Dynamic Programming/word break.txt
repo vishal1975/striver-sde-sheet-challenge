@@ -1,0 +1,41 @@
+ public static boolean util2(HashSet<String> arr, int n, String target,int pos,int dp[]){
+        if(pos>=n){
+            return true;
+        }
+        if(dp[pos]!=-1){
+            
+            if(dp[pos]==1){
+                return true;
+            }
+            return false;
+        }
+        
+        for(int i=pos;i<n;i++){
+            String a = target.substring(pos,i+1);
+            if(arr.contains(a)){
+                boolean check = util2(arr,n,target,i+1,dp);
+                if(check){
+                    dp[pos]=1;
+                    return true;
+                }
+            }
+        }
+        dp[pos]=0;
+        return false;
+        
+    }
+    
+
+    public static Boolean wordBreak(String[] arr, int n, String target) {
+        // Write your code here.
+        HashSet<String> a = new HashSet<String>();
+        int dp[] = new int[target.length()];
+        for(int i=0;i<target.length();i++){
+            dp[i]=-1;
+        }
+        for(int i=0;i<n;i++){
+            a.add(arr[i]);
+        }
+        
+        return util2(a,target.length(),target,0,dp);
+    }

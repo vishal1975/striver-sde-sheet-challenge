@@ -1,0 +1,47 @@
+ public static int findParent(int parent[],int x){
+        
+        if(parent[x]==x){
+            return x;
+        }
+        int a = findParent(parent,parent[x]);
+        parent[x]=a;
+        return a;
+    }
+    public static int jobScheduling(int[][] jobs)
+    {
+        // Write your code here
+        int row = jobs.length;
+        
+        int max =0;
+        
+        for(int i=0;i<row;i++){
+            max = Math.max(max, jobs[i][0]);
+        }
+        
+        int parent[]= new int[max+1];
+        
+        for(int i=0;i<=max;i++){
+            parent[i]=i;
+        }
+        Arrays.sort(jobs,new Comparator<int[]>(){
+              public int compare(int[] a, int[] b) {
+             return b[1]-a[1];
+              }
+        });
+        
+        int ans = 0;
+        for(int i=0;i<row;i++){
+            int deadline = jobs[i][0];
+            int profit = jobs[i][1];
+            int p = findParent(parent,deadline);
+            
+            if(p!=0){
+                ans+=profit;
+                parent[p]=p-1;
+            }
+            
+            
+        }
+        return ans;
+        
+    }
