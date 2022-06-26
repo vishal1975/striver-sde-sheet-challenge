@@ -1,0 +1,33 @@
+  public static boolean util(ArrayList < ArrayList < Integer >> graph,int visitedfirst[],int visitedsecond[],int node){
+        visitedfirst[node]=1;
+        visitedsecond[node]=1;
+        
+        for(int neighbor : graph.get(node)){
+            if(visitedsecond[neighbor]==1){
+               return true; 
+            }
+            if(util(graph,visitedfirst,visitedsecond,neighbor)){
+                return true;
+            }
+            
+        }
+        visitedsecond[node]=0;
+        return false;
+    }
+    
+  public static boolean detectCycleInDirectedGraph(int n, ArrayList < ArrayList < Integer >> graph) {
+    // Write your code here.
+      
+        int visitedfirst[] = new int[n+1];
+        int visitedsecond[] = new int[n+1];
+      for(int i=1;i<=n;i++){
+          
+          if(visitedfirst[i]==0){
+              if(util(graph,visitedfirst,visitedsecond,i)){
+                  return true;
+              }
+          }
+          
+      }
+      return false;
+      

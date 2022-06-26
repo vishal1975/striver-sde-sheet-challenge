@@ -1,0 +1,43 @@
+public static void util(int[][] mat,int i,int j, int n , int m,int visited[][]){
+        
+        if(i<0 || i>=n){
+            return ;
+        }
+        if(j<0 || j>=m){
+            return ;
+        }
+        if(mat[i][j]==0){
+            return;
+        }
+        if(visited[i][j]==1){
+            return;
+        }
+        
+        visited[i][j]=1;
+        util(mat,i+1,j,n,m,visited);
+        util(mat,i-1,j,n,m,visited);
+        util(mat,i,j+1,n,m,visited);
+        util(mat,i,j-1,n,m,visited);
+        util(mat,i+1,j+1,n,m,visited);
+        util(mat,i+1,j-1,n,m,visited);
+         util(mat,i-1,j-1,n,m,visited);
+        util(mat,i-1,j+1,n,m,visited);
+    }
+    public static int getTotalIslands(int[][] mat) 
+	{
+        //Your code goes here
+        int n = mat.length;
+        int m = mat[0].length;
+        int visited[][] =new int[n][m];
+        
+        int count =0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(visited[i][j]==0 && mat[i][j]==1){
+                    count++;
+                    util(mat,i,j,n,m,visited);
+                }
+            }
+        }
+        return count;
+    }

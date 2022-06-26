@@ -1,0 +1,31 @@
+class comb{
+    graphNode one;
+    graphNode two;
+    comb(graphNode one,graphNode two){
+        this.one = one;
+        this.two = two;
+    }
+}
+public class Solution {
+    public static graphNode cloneGraph(graphNode node) {
+        // Write your code here.
+        
+        Queue<comb> bfs = new LinkedList<>();
+        graphNode root = new  graphNode();
+        bfs.add(new comb(node,root));
+        while(!bfs.isEmpty()){
+            comb temp = bfs.poll();
+            graphNode first = temp.one;
+                graphNode second = temp.two;
+            second.data = first.data;
+            
+            
+            for(graphNode temps : first.neighbours){
+                graphNode newNode = new graphNode();
+                bfs.add(new comb(temps,newNode));
+                second.neighbours.add(newNode);
+            }
+        }
+        return root;
+    }
+}

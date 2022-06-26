@@ -1,0 +1,55 @@
+ public static String cycleDetection(int[][] edges, int n, int m) {
+        // Write your code here.
+        
+        ArrayList<ArrayList<Integer>> graph = new ArrayList<ArrayList<Integer>>();
+        
+        for(int i=0;i<=n;i++){
+            
+            graph.add(new ArrayList<Integer>());
+        }
+        int visited[] = new int[n+1];
+        
+        for(int i=0;i<m;i++){
+            
+            int first = edges[i][0];
+            int second = edges[i][1];
+            graph.get(first).add(second);
+            graph.get(second).add(first);
+            
+        }
+        for(int i=1;i<=n;i++){
+        if(visited[i]!=1){
+        Queue<comb> bfs = new LinkedList<comb>();
+        bfs.add(new comb(i,-1));
+        
+        while(!bfs.isEmpty()){
+            
+            comb temp= bfs.poll();
+            int a= temp.ver;
+            int parent = temp.parent;
+            visited[a]=1;
+            for(int neighbor : graph.get(a)){
+                if(neighbor!=parent){
+                    if(visited[neighbor]==1){
+                        return "Yes";
+                    }
+                    bfs.add(new comb(neighbor,a));
+                }
+            }
+        }
+        }
+        }
+ return "No";
+    }
+    
+}
+
+class comb{
+    
+    int ver;
+    int parent;
+    comb(int ver,int parent){
+        this.ver = ver;
+        this.parent = parent;
+    }
+}

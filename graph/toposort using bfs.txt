@@ -1,0 +1,58 @@
+  static int[] topoSort(int v, ArrayList<ArrayList<Integer>> graph) 
+    {
+        // add your code here
+        
+        
+        
+         int indegree[] = new int[v];
+        
+        
+         
+        for(int i=0;i<v;i++){
+            
+            
+            for(int neighbour : graph.get(i)){
+                
+                indegree[neighbour]++;
+            }
+        }
+        
+        
+       
+        Queue<Integer> topo = new LinkedList<Integer>();
+        for(int i=0;i<v;i++){
+            if(indegree[i]==0){
+                topo.add(i);
+            }
+        }
+        
+       ArrayList<Integer> ans = new ArrayList<Integer>();
+        while(!topo.isEmpty()){
+            
+            int a = topo.poll();
+          
+           ans.add(a);
+            for(int temp : graph.get(a)){
+                
+                indegree[temp]--;
+                
+                if(indegree[temp]==0){
+                    topo.add(temp);
+                }
+            }
+            
+        }
+        
+        int coc[] =new int[ans.size()];
+       
+        for(int i=0;i<ans.size();i++){
+            coc[i] = ans.get(i);
+          
+        }
+        
+        return coc;
+        
+        
+        
+        
+    }
